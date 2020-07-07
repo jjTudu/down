@@ -6,6 +6,10 @@ import sys
 def index(request):
     return render(request, 'index.html')
 
+def home(request):
+    index(request)
+
+
 def videoDownload(request):
     url=request.POST.get('userUrl')
     out= run([sys.executable,'down//urlsubmitted.py',url],shell=False,stdout=PIPE) 
