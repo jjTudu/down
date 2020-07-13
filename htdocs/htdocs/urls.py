@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path 
-from down.views import index
-from down.views import videoDownload
-from down.views import home
+from down.views import index, videoDownload, download, home
+
+app_name = "down"
 
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
-    path('down/', index),
+    path('', index),
     path('videoDownload/', videoDownload),
     path('home/', home),
+    path('videoDownload/download/', download),
 ]

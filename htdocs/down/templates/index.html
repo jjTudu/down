@@ -263,9 +263,9 @@
 								<form method="post" id="urlform" name="urlform" action="/videoDownload/">
 									{% csrf_token %}
 									<div class="input-group">
-										<input type="url" name="userUrl" id="userUrl" class="form-control form-control-lg" value="https://www.w3schools.com/tags/att_form_action.asp"
+										<input type="url" name="userUrl" id="userUrl" class="form-control form-control-lg" value="https://www.facebook.com/memezzers69/videos/652298168693374/?t=2"
 											placeholder="Video link to download" autocomplete="off" maxlength="1500" minlength="10" required>
-										<!--<a  action="urlsubmitted.php"  href="services.html" class="slider">Download</a>-->
+										<!--<a  action="https://www.youtube.com/watch?v=lEqmlM2x5Ig"  href="" class="slider">Download</a>-->
 										<span class="input-group-btn">
 											<button type="submit" name="download" id="download" class="btn btn-primary">Download</button>
 										</span>
@@ -277,7 +277,7 @@
 								<h3 class="widget-title" id="data">{{videoTitle}}</h3>
 								<div class="working-hours">  
 									<video controls="true">
-										<source src="www.youtube.com/watch?v=3bGNuRtlqAQ" type="video/mp4" />
+										<source src={{userUrl}} type="video/mp4" />
 										Video tag is not supported in this browser.
 									</video>
 								</div>
