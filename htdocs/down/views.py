@@ -74,8 +74,8 @@ def videoDownload(request):
                     if str(resolution)=='unknown':
                         resolution= formatSplited[0]    
 
-                    downloadLinks +=('<li><a href="{videoLink}" target="_blank" accesskey="1" title={title}>{resolution}</a></li>'.format(videoLink=format['url'], resolution=resolution, title=title)) 
-        return render(request,'index.html',{'videoTitle':"james video",'userUrl':url, 'downloadLinks':downloadLinks})
+                    downloadLinks +=('<a href="{videoLink}" target="_blank" accesskey="1" title={title} class="list-group-item list-group-item-action">{resolution}</a>'.format(videoLink=format['url'], resolution=resolution, title=title)) 
+        return render(request,'index.html',{'videoTitle':title,'userUrl':url, 'downloadLinks':downloadLinks})
 
     return render(request,'index.html', {'videoTitle':"Error: Result was empty.",'userUrl':url})
   

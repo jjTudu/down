@@ -22,7 +22,7 @@ app_name = "down"
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
-    path('', index),
+    path('', index, name='index'),
     path('videoDownload/', videoDownload),
     path('home/', home),
     path('videoDownload/download/', download),
