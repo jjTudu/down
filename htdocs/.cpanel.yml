@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/download/public_html
-    - /bin/cp -r /htdocs/* $DEPLOYPATH
+    - /bin/cp -r /htdocs/ * $DEPLOYPATH
