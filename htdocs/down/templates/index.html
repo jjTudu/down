@@ -6,7 +6,7 @@
 	<!-- Basic Page Needs
 	================================================== -->
 	<meta charset="utf-8">
-	<title>Toby - The video download</title>
+	<title>SaveFromWeb - The online video downloader</title>
 	{% load static %}  
 	<!-- Mobile Specific Metas
 	================================================== -->
@@ -38,25 +38,7 @@
       <script src="{% static js/html5shiv.js"></script>
       <script src="{% static js/respond.min.js"></script>
 	<![endif]-->
- 
-	<style>
-		#container {
-		text-align: center;
-		background: url(main-bg.jpg) 0 0 no-repeat;
-	}
-	
-	#container>h1 {
-		display: inline; 
-		letter-spacing: -5px;
-		color: rgba(0,0,255,0.5); 
-	}
-	
-	#container>h1:after {
-		content: "Toby";
-		position: absolute; left: 10px; top: 5px;
-		color: rgba(255,0,0,0.95);   
-	}
-	</style>
+ 	 
 </head>
 
 <body>
@@ -78,26 +60,23 @@
 								<div class="collapse navbar-collapse navbar-responsive-collapse">
 									<ul class="nav navbar-nav">
 										 
-										<li><a href="{% url 'index' %}">Home</a></li>										 
-
-										<li><a href="contact.html">Twitter user media grabber!</a></li>
-
+										<li><a href="{% url 'index' %}">Home</a></li>
+										
 										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Features <i
-													class="fa fa-angle-down"></i></a>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Features <i class="fa fa-angle-down"></i></a>
 											<ul class="dropdown-menu" role="menu">
-												<li><a href="typography.html">Typography</a></li>
-												<li><a href="404.html">404</a></li>
+												<li><a href="{% url 'twitter' %}">Twitter</a></li>
+												<li><a href="{% url 'index' %}">404</a></li>
 												<li class="dropdown-submenu">
 													<a href="#.">Parent Menu</a>
 													<ul class="dropdown-menu">
-														<li><a href="#">Child Menu 1</a></li>
-														<li><a href="#">Child Menu 2</a></li>
-														<li><a href="#">Child Menu 3</a></li>
+														<li><a href="{% url 'index' %}">Child Menu 1</a></li>
+														<li><a href="{% url 'index' %}">Child Menu 2</a></li>
+														<li><a href="{% url 'index' %}">Child Menu 3</a></li>
 													</ul>
 												</li>
 											</ul>
-										</li>									
+										</li>
 									</ul>
 									<!--/ Nav ul end -->
 								</div>
@@ -114,7 +93,7 @@
 						<span id="search"><i class="fa fa-search"></i></span>
 					</div> -->
 					<div id="container" class="nav-search">
-						<h1 id="search">Toby</h1>
+						<h1 id="search">sfw</h1>
 					</div>
 					<!-- Logo end -->					
 				</div>
@@ -133,15 +112,15 @@
 					<div class="slider-content">
 						<div class="col-md-12 text-center">  
 							<h2 class="slide-sub-title animated5" style="margin-top: -1%;font-size:26px;letter-spacing: -0.7px;">
-								<small>Download/ Save Any Website Videos Online</small>
+								<small>Download Or Save Any Website Videos Online</small>
 							</h2>
-							<h5 class="animated5" style="letter-spacing: -0.7px;font-size:20px;margin-top: -3%;">
+							<h5 class="animated5" style="letter-spacing: -0.7px;font-size:20px;margin-top: -2%;">
 								<small>Paste the link of videos below, and click download</small>
 							</h5>
 							<p>
 								<form method="post" id="urlform" name="urlform" action="/videoDownload/">
 									{% csrf_token %}
-									<div class="input-group">
+									<div class=" container input-group">
 										<input type="url" name="userUrl" id="userUrl" class="form-control form-control-lg" value="https://www.facebook.com/memezzers69/videos/652298168693374/?t=2"
 											placeholder="Video link to download" autocomplete="off" maxlength="1500" minlength="10" required>
 										<!--<a  action="https://www.youtube.com/watch?v=lEqmlM2x5Ig"  href="" class="slider">Download</a>-->
@@ -155,21 +134,33 @@
 								</form> 
 							</p> 
 
-							<div class="col-md-6 col-sm-12 ">								
-								<div class="working-hours">								
-									<iframe width="420" height="315" src="{{ userUrl }}">
-									</iframe>								
+							<div class="col-md-4 col-sm-12 ">
+							
+							</div><!-- Col end -->
+
+							<div class="col-md-4 col-sm-12 ">
+								{% if thumbnail is not None  %}
+								<div class="working-hours">
+									<img class="fit-picture" height="250"
+									 src="{{ thumbnail }}" alt="save video from any website">
+									<div class="time">{{totalTime}}</div>
 								</div>
 								<h5 class="widget-title" id="data">{{videoTitle}}</h5>
-							</div><!-- Col end -->
-	
-							<div class="col-md-6 col-sm-12 subscribe">
-								<h6 class="widget-title">Click to download links</h6>
-								<h6 class="widget-title">Or Right click and Save link as</h6>
-								<div class="list-group list-group-flush">
+								{% endif %}	
+							</div><!-- Col end --> 
+							
+							{% if downloadLinks is None  %}
+							<div class="col-md-4 col-sm-12" >
+								{% else %}
+								<div class="col-md-4 col-sm-12 subscribe" >
+									<h6 class="widget-title">Click to download links</h6>
+									<h6 class="widget-title">Or Right click and save link as</h6>
+									{% endif %}		
+								<div class="list-group list-group-flush" style="margin-bottom: 0px;">
 									{{downloadLinks|safe}}
 								</div>								 
 							</div><!-- Col end -->
+
 						</div>
 					</div>
 				</div>	
@@ -181,8 +172,7 @@
 
 		<section id="project-area" class="project-area solid-bg">
 			<div class="container">
-				<div class="row text-center">
-					<h2 class="section-title">Work of Excellence</h2>
+				<div class="row text-center"> 
 					<h3 class="section-sub-title">Recent Downloads</h3>
 				</div>
 				<!--/ Title row end -->
@@ -195,8 +185,7 @@
 							<li><a href="#" data-filter=".education" class="active">Youtube</a></li>
 							<li><a href="#" data-filter=".government">Twitter</a></li>
 							<li><a href="#" data-filter=".infrastructure">Instagram</a></li>
-							<li><a href="#" data-filter=".residential">Residential</a></li>
-							<li><a href="#" data-filter=".healthcare">Healthcare</a></li>
+							<li><a href="#" data-filter=".residential">Etc..</a></li> 
 						</ul>
 					</div><!-- Isotope filter end -->
 
@@ -371,8 +360,8 @@
 					<div class="col-md-6 col-xs-12">
 						<div class="ts-intro">
 							<h2 class="into-title">Note</h2>
-							<h3 class="into-sub-title">We deliver</h3>
-							<p>Toby website does not host any pirated or copyright content on its server, and all the videos that you download are downloaded to your system directly from their respective CDN servers.</p>
+							<h3 class="into-sub-title">Only deliver.</h3>
+							<p>SaveFromWeb.com website does not host any pirated or copyright content on its server, and all the videos that you download are downloaded to your system directly from their respective CDN servers.</p>
 						</div><!-- Intro box end -->
 
 						<div class="gap-20"></div>
@@ -536,23 +525,17 @@
 
 						<div class="col-md-4 col-sm-12 footer-widget">
 							<h3 class="widget-title">Working Hours</h3>
-							<div class="working-hours">
-								We work 7 days a week, every day excluding major holidays. Contact us if you have an emergency, with our
-								Hotline and Contact form.
-								<br><br> Monday - Friday: <span class="text-right">10:00 - 16:00 </span>
-								<br> Saturday: <span class="text-right">12:00 - 15:00</span>
-								<br> Sunday and holidays: <span class="text-right">09:00 - 12:00</span>
+							<div class="working-hours"> 
+								<br><br> Monday - Friday: <span class="text-right">09:30 - 18:00 </span>
+								<br> Saturday: <span class="text-right">12:00 - 14:00</span> 
 							</div>
 						</div><!-- Col end -->
 
 						<div class="col-md-4 col-sm-12 footer-widget">
 							<h3 class="widget-title">Services</h3>
 							<ul class="list-arrow">
-								<li><a href="service-single.html">Pre-Construction</a></li>
-								<li><a href="service-single.html">General Contracting</a></li>
-								<li><a href="service-single.html">Construction Management</a></li>
-								<li><a href="service-single.html">Design and Build</a></li>
-								<li><a href="service-single.html">Self-Perform Construction</a></li>
+								<li><a href="service-single.html">Any video downloads</a></li>
+								<li><a href="service-single.html">Twitter used all media.(Soon)</a></li> 
 							</ul>
 						</div><!-- Col end -->
 

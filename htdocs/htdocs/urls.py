@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path 
-from down.views import index, videoDownload, download, home
+from down.views import index, videoDownload, download, home, twitter
 
 app_name = "down"
 
@@ -26,4 +26,5 @@ urlpatterns = [
     path('videoDownload/', videoDownload),
     path('home/', home),
     path('videoDownload/download/', download),
+    path('twitter/', twitter, name='twitter'),
 ]

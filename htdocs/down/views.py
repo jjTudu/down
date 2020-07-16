@@ -14,14 +14,20 @@ import requests
 import os.path
 from django.contrib import messages 
 import youtube_dl
+import datetime
+from datetime import timedelta
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    #return render(request, 'index.html',{'thumbnail':'/static/images/save.jpg'})
+    return render(request, 'index.html',{'thumbnail':None})
 
 def home(request):
     index(request)
  
+def twitter(request):
+     return render(request, 'twitter.html')
+
 def videoDownload2(request):
     url=request.POST.get('userUrl')
     out= run([sys.executable,'down//urlsubmitted.py',url],shell=False,stdout=PIPE)  
@@ -62,6 +68,13 @@ def videoDownload(request):
 
         #for loop
         title=video['title']
+        thumbnail=video['thumbnail']
+        #ts = int(video['timestamp'])         
+        #a = datetime.timedelta(seconds=65)
+        #datetime.timedelta(0, 65)
+
+        #totalTime=str(a)
+        totalTime='Thumbnail'
         for format in video['formats']:
             # only mp4
             if (format['ext'] == 'mp4') and ('protocol' in format) and (format['protocol']=='https' or format['protocol']=='http'):
@@ -72,10 +85,10 @@ def videoDownload(request):
                     formatSplited= format['format'].split("-")
                     resolution=formatSplited[-1].strip()
                     if str(resolution)=='unknown':
-                        resolution= formatSplited[0]    
-
+                        resolution= formatSplited[0]   
                     downloadLinks +=('<a href="{videoLink}" target="_blank" accesskey="1" title={title} class="list-group-item list-group-item-action">{resolution}</a>'.format(videoLink=format['url'], resolution=resolution, title=title)) 
-        return render(request,'index.html',{'videoTitle':title,'userUrl':url, 'downloadLinks':downloadLinks})
+
+        return render(request,'index.html',{'videoTitle':title,'userUrl':url,'thumbnail':thumbnail,'totalTime':totalTime ,'downloadLinks':downloadLinks})
 
     return render(request,'index.html', {'videoTitle':"Error: Result was empty.",'userUrl':url})
   
