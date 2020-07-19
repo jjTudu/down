@@ -1,7 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/download/public_html
-    - /bin/cp -r /htdocs/ * $DEPLOYPATH
-
-savefrom.xyz
