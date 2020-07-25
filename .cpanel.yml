@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/savefrom/public_html/save
-    - /bin/cp htdocs/* $DEPLOYPATH
+    - /bin/cp /htdocs/ $DEPLOYPATH
