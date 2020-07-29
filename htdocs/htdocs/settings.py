@@ -25,7 +25,7 @@ SECRET_KEY = '6%u6mysf_cztn_=%op*ov@c58&t11x*-g!0t56=as9gkn)a=rj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.savefromweb.xyz','http://savefromweb.xyz/','savefromweb.xyz/','savefromweb.xyz']
 
 
 # Application definition
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'down',
-    'youtube_dl',
 ]
 
 MIDDLEWARE = [

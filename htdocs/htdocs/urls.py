@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path 
 from down.views import index, videoDownload, download, home, twitter
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = "down"
 
@@ -27,4 +29,4 @@ urlpatterns = [
     path('home/', home),
     path('videoDownload/download/', download),
     path('twitter/', twitter, name='twitter'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
